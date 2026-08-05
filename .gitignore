@@ -1,1 +1,24 @@
-cloud-task-manager-504403-1142cbbbe0d3.json
+# ── Credentials & secrets ───────────────────────────────────────────────────
+cloud-task-manager-*.json
+.env
+.env.*
+!.env.example
+
+# ── Dependencies ─────────────────────────────────────────────────────────────
+node_modules/
+**/node_modules/
+
+# ── Build output ─────────────────────────────────────────────────────────────
+dist/
+**/dist/
+build/
+
+# ── Local DB ─────────────────────────────────────────────────────────────────
+*.db
+*.db-journal
+backend/prisma/dev.db
+
+# ── OS / editor ──────────────────────────────────────────────────────────────
+.DS_Store
+.vscode/
+*.swp

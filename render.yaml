@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: taskflow-backend
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: OPENROUTER_API_KEY
+        sync: false
+      - key: STORJ_ENDPOINT
+        sync: false
+      - key: STORJ_ACCESS_KEY
+        sync: false
+      - key: STORJ_SECRET_KEY
+        sync: false
+      - key: STORJ_BUCKET
+        sync: false
+      - key: STORJ_LINK_ACCESS
+        sync: false
