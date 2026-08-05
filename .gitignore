@@ -22,3 +22,7 @@ backend/prisma/dev.db
 .DS_Store
 .vscode/
 *.swp
+
+# ── Private documents ─────────────────────────────────────────────────────────
+taskflow-deployment-credentials.html
+*deployment-credential*.html

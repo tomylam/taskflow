@@ -7,7 +7,7 @@ generator client {
 
 datasource db {
   // LOCAL: sqlite  |  RAILWAY PRODUCTION: switch back to "postgresql"
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
