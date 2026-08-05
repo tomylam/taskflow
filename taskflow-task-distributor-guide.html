@@ -1,0 +1,860 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TaskFlow - Task Distributor User Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+            background-color: #ffffff;
+            color: #1f2328;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+        .container {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 30px;
+        }
+        h1 {
+            font-size: 32px;
+            margin-bottom: 8px;
+            color: #7c5cd8;
+        }
+        .subtitle {
+            color: #57606a;
+            font-size: 16px;
+        }
+        h2 {
+            font-size: 22px;
+            margin-top: 32px;
+            margin-bottom: 16px;
+            color: #1f2328;
+            border-left: 4px solid #7c5cd8;
+            padding-left: 12px;
+        }
+        h3 {
+            font-size: 16px;
+            margin-top: 20px;
+            margin-bottom: 12px;
+            color: #1f2328;
+        }
+        p {
+            margin-bottom: 12px;
+            color: #1f2328;
+        }
+        .section {
+            margin-bottom: 32px;
+        }
+        .step {
+            background-color: #f7f8fa;
+            border-left: 3px solid #7c5cd8;
+            padding: 12px 16px;
+            margin: 12px 0;
+            border-radius: 4px;
+        }
+        .step strong {
+            color: #7c5cd8;
+        }
+        ul, ol {
+            margin-left: 24px;
+            margin-bottom: 12px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin: 20px 0;
+        }
+        .timeline-item {
+            display: flex;
+            gap: 12px;
+        }
+        .timeline-badge {
+            flex-shrink: 0;
+            width: 32px;
+            height: 32px;
+            background-color: #7c5cd8;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .timeline-content {
+            flex: 1;
+            padding-top: 4px;
+        }
+        .timeline-content strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+        .timeline-content p {
+            margin-bottom: 0;
+            color: #57606a;
+        }
+        .feature-box {
+            background-color: #f7f8fa;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 16px;
+            margin: 16px 0;
+        }
+        .feature-box h4 {
+            margin-top: 0;
+            margin-bottom: 8px;
+            color: #7c5cd8;
+            font-size: 14px;
+        }
+        .feature-box p {
+            margin-bottom: 0;
+            font-size: 14px;
+            color: #57606a;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        thead {
+            background-color: #f7f8fa;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        th {
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            color: #1f2328;
+            font-size: 14px;
+        }
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        tr:last-child td {
+            border-bottom: none;
+        }
+        .code-block {
+            background-color: #f7f8fa;
+            border: 1px solid #e5e7eb;
+            border-radius: 4px;
+            padding: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            overflow-x: auto;
+            margin: 12px 0;
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            background-color: #e5e7eb;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: 500;
+            margin-right: 4px;
+        }
+        .badge-success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .badge-info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+        }
+        .badge-warning {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        .badge-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .tips {
+            background-color: #d1ecf1;
+            border-left: 4px solid #0c5460;
+            padding: 12px 16px;
+            margin: 16px 0;
+            border-radius: 4px;
+        }
+        .tips strong {
+            color: #0c5460;
+        }
+        .warning {
+            background-color: #fff3cd;
+            border-left: 4px solid #856404;
+            padding: 12px 16px;
+            margin: 16px 0;
+            border-radius: 4px;
+        }
+        .warning strong {
+            color: #856404;
+        }
+        .faq {
+            margin-bottom: 20px;
+        }
+        .faq-q {
+            background-color: #f7f8fa;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            color: #7c5cd8;
+        }
+        .faq-a {
+            padding: 12px;
+            color: #57606a;
+            border-left: 3px solid #e5e7eb;
+            margin-bottom: 16px;
+        }
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 16px 0;
+        }
+        .comparison-item {
+            background-color: #f7f8fa;
+            border: 1px solid #e5e7eb;
+            border-radius: 4px;
+            padding: 12px;
+        }
+        .comparison-item strong {
+            display: block;
+            margin-bottom: 8px;
+            color: #7c5cd8;
+        }
+        footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e5e7eb;
+            text-align: center;
+            font-size: 12px;
+            color: #57606a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>TaskFlow</h1>
+            <p class="subtitle">Task Distributor User Guide</p>
+        </header>
+
+        <div class="section">
+            <h2>Welcome to TaskFlow</h2>
+            <p>TaskFlow is a cloud-based platform that connects you with qualified service providers who can help complete your academic assignments. This guide will help you post tasks, manage quotes, review work, and ensure quality deliverables.</p>
+            <div class="tips">
+                <strong>📌 Getting Started:</strong> Register your account, verify your email, and set up your profile. Then you're ready to post your first task and connect with service providers.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Account Setup &amp; Registration</h2>
+            <h3>Creating Your Account</h3>
+            <div class="step">
+                <strong>Step 1:</strong> Visit the TaskFlow login page and click "Don't have an account? Register"
+            </div>
+            <div class="step">
+                <strong>Step 2:</strong> Fill in your details:
+                <ul style="margin-top:8px">
+                    <li><strong>Email:</strong> Use a valid email address you check regularly</li>
+                    <li><strong>Password:</strong> Create a strong password (8+ characters, mix of letters, numbers, symbols)</li>
+                    <li><strong>Account Type:</strong> Select "Work Distributor"</li>
+                </ul>
+            </div>
+            <div class="step">
+                <strong>Step 3:</strong> Click "Register" and verify your email address
+            </div>
+
+            <h3>Completing Your Profile</h3>
+            <p>A complete profile builds trust with service providers:</p>
+            <ul>
+                <li><strong>Full Name:</strong> Your real name or organization name</li>
+                <li><strong>Profile Photo:</strong> Professional photo or organization logo</li>
+                <li><strong>Bio/Description:</strong> Brief background about yourself or your organization</li>
+                <li><strong>Contact Information:</strong> Secondary email or phone for important matters</li>
+                <li><strong>Preferred Subjects:</strong> Areas where you typically need help (optional)</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Understanding the Task Lifecycle</h2>
+            <p>Every task follows a structured workflow. As a distributor, you manage it through each stage:</p>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-badge">1</div>
+                    <div class="timeline-content">
+                        <strong>PENDING_QUOTE</strong>
+                        <p>You've posted the task. Service providers are submitting quotes. Review incoming bids and choose the best one.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-badge">2</div>
+                    <div class="timeline-content">
+                        <strong>QUOTED</strong>
+                        <p>A service provider has submitted a quote. You accept or reject it. Accepting moves the task to IN_PROGRESS.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-badge">3</div>
+                    <div class="timeline-content">
+                        <strong>IN_PROGRESS</strong>
+                        <p>The provider is working on your task. Communicate, review drafts, and monitor progress.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-badge">4</div>
+                    <div class="timeline-content">
+                        <strong>SUBMITTED</strong>
+                        <p>Provider has uploaded the completed work. Review it carefully and decide: approve or request revisions.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-badge">5</div>
+                    <div class="timeline-content">
+                        <strong>COMPLETED</strong>
+                        <p>You've approved the work. Task is complete, payment is processed, and you can leave a rating.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-badge">⚡</div>
+                    <div class="timeline-content">
+                        <strong>REVISION (any time)</strong>
+                        <p>You can request revisions while in IN_PROGRESS or SUBMITTED stages. Provider goes back to IN_PROGRESS to make changes.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Posting Your First Task</h2>
+            <h3>Getting Started</h3>
+            <p>Click "Create New Task" or "Post a Task" from your dashboard to begin:</p>
+            <div class="step">
+                <strong>Step 1:</strong> Click "Create Task"
+            </div>
+            <div class="step">
+                <strong>Step 2:</strong> Fill in the task details (see sections below)
+            </div>
+            <div class="step">
+                <strong>Step 3:</strong> Upload any reference files or materials
+            </div>
+            <div class="step">
+                <strong>Step 4:</strong> Set your budget and deadline
+            </div>
+            <div class="step">
+                <strong>Step 5:</strong> Review and click "Post Task"
+            </div>
+
+            <h3>Task Title &amp; Description</h3>
+            <p><strong>Title:</strong> Be clear and specific. Examples:</p>
+            <ul>
+                <li>❌ Bad: "Essay needed"</li>
+                <li>✅ Good: "1500-word essay on climate change policy (APA format, due Dec 15)"</li>
+            </ul>
+            <p><strong>Description:</strong> Include:</p>
+            <ul>
+                <li>Assignment requirements and objectives</li>
+                <li>Word count or page length</li>
+                <li>Format (APA, MLA, Chicago, etc.)</li>
+                <li>Specific topics or sections to cover</li>
+                <li>Any rubrics, grading criteria, or expectations</li>
+                <li>Subject matter or course context</li>
+                <li>Tone and style preferences</li>
+            </ul>
+
+            <h3>Task Category &amp; Subject</h3>
+            <p>Select the most relevant category to help service providers find your task:</p>
+            <ul>
+                <li>Essay Writing</li>
+                <li>Research &amp; Analysis</li>
+                <li>Mathematics &amp; Statistics</li>
+                <li>Programming &amp; Code</li>
+                <li>Data Analysis</li>
+                <li>Lab Reports</li>
+                <li>Case Studies</li>
+                <li>Other</li>
+            </ul>
+
+            <h3>Uploading Reference Materials</h3>
+            <p>Attach files that help service providers understand your requirements:</p>
+            <ul>
+                <li><strong>Assignment PDF:</strong> The original assignment document</li>
+                <li><strong>Rubric:</strong> Grading criteria if available</li>
+                <li><strong>Sample Work:</strong> Examples of the quality/style you expect</li>
+                <li><strong>Research Materials:</strong> Articles, sources, or reference documents</li>
+                <li><strong>Template:</strong> Any specific format or structure to follow</li>
+            </ul>
+            <p><strong>📁 Supported Formats:</strong> PDF, Word (.docx), Excel (.xlsx), Images, and more. No file size limits.</p>
+
+            <h3>Setting Budget &amp; Deadline</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Field</th>
+                        <th>What to Do</th>
+                        <th>Why It Matters</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Budget</strong></td>
+                        <td>Set a realistic price based on task complexity and timeline</td>
+                        <td>Affects quote quality; too low may attract inexperienced providers</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Deadline</strong></td>
+                        <td>Set a deadline at least 2-3 days before your actual due date</td>
+                        <td>Gives you time to review and request revisions if needed</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Visibility</strong></td>
+                        <td>Choose between Public (all providers) or Invite-Only</td>
+                        <td>Public gets more quotes; Invite-Only lets you contact specific providers</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>AI-Powered Task Analysis</h3>
+            <p>TaskFlow automatically analyzes your task using AI (Google Gemini) to:</p>
+            <ul>
+                <li>Identify key requirements and deliverables</li>
+                <li>Suggest estimated complexity level</li>
+                <li>Highlight important details service providers should know</li>
+                <li>Flag potential ambiguities or missing information</li>
+            </ul>
+            <p>Review the AI analysis and adjust your description if needed to make requirements crystal clear.</p>
+        </div>
+
+        <div class="section">
+            <h2>Managing Quotes &amp; Selecting a Service Provider</h2>
+            <h3>Receiving Quotes</h3>
+            <p>After posting your task, service providers will submit quotes. You'll see:</p>
+            <ul>
+                <li>Provider's name, profile photo, and rating</li>
+                <li>Proposed price and delivery date</li>
+                <li>Optional cover message explaining their approach</li>
+                <li>Provider's specializations and past completion rate</li>
+            </ul>
+
+            <h3>Evaluating Quotes</h3>
+            <p>Consider these factors when choosing a provider:</p>
+            <div class="comparison">
+                <div class="comparison-item">
+                    <strong>Price</strong>
+                    <p>Competitive pricing without being suspiciously cheap. Don't just pick the lowest bid.</p>
+                </div>
+                <div class="comparison-item">
+                    <strong>Rating</strong>
+                    <p>Look for providers with 4.5+ stars and positive reviews. New providers may have no history.</p>
+                </div>
+                <div class="comparison-item">
+                    <strong>Specialization</strong>
+                    <p>Choose someone with expertise in your subject. Check their previous work and reviews.</p>
+                </div>
+                <div class="comparison-item">
+                    <strong>Responsiveness</strong>
+                    <p>A good cover message and quick quote submission suggest they're engaged and professional.</p>
+                </div>
+                <div class="comparison-item">
+                    <strong>Delivery Timeline</strong>
+                    <p>Ensure they can deliver in time. Realistic timelines are better than rushed promises.</p>
+                </div>
+                <div class="comparison-item">
+                    <strong>Communication</strong>
+                    <p>Did they ask clarifying questions? This shows they carefully read your task.</p>
+                </div>
+            </div>
+
+            <h3>Accepting or Rejecting Quotes</h3>
+            <div class="step">
+                <strong>To Accept:</strong> Click "Accept Quote" on the provider's bid. The task moves to IN_PROGRESS and you begin working together.
+            </div>
+            <div class="step">
+                <strong>To Reject:</strong> Click "Reject" and optionally provide feedback to help the provider improve. Other providers can still bid.
+            </div>
+            <p style="margin-top:16px"><strong>💡 Pro Tip:</strong> Once you find a great provider, you can contact them directly for future tasks. Build long-term relationships!</p>
+
+            <h3>Managing Multiple Quotes</h3>
+            <p>You can review multiple quotes before deciding. Best practices:</p>
+            <ul>
+                <li>Don't accept the first quote unless it's clearly the best</li>
+                <li>Wait 24-48 hours to give providers time to submit</li>
+                <li>Compare at least 3-5 quotes before making a decision</li>
+                <li>Look for quality indicators (rating, experience, detailed cover messages)</li>
+                <li>Trust your gut—if something feels off, it probably is</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Working with Service Providers</h2>
+            <h3>Communication &amp; Messaging</h3>
+            <p>Once a provider is selected, you have a built-in chat for each task:</p>
+            <ul>
+                <li>Ask clarifying questions or provide additional guidance</li>
+                <li>Request progress updates at key milestones</li>
+                <li>Share feedback on drafts or intermediate submissions</li>
+                <li>Discuss any changes or revised requirements</li>
+                <li>Keep a record of all communications in one place</li>
+            </ul>
+            <div class="tips">
+                <strong>💡 Communication Best Practices:</strong> Be clear, specific, and professional. Provide feedback promptly. If something is wrong, explain it kindly—providers want to get it right.
+            </div>
+
+            <h3>Monitoring Task Progress</h3>
+            <p>Track progress through the task detail page:</p>
+            <ul>
+                <li><strong>Stage Updates:</strong> Provider updates their progress status</li>
+                <li><strong>File Uploads:</strong> View drafts and intermediate work</li>
+                <li><strong>Messages:</strong> See all communications in the chat thread</li>
+                <li><strong>Timeline:</strong> Visual progress tracking from start to completion</li>
+            </ul>
+
+            <h3>Requesting Revisions</h3>
+            <p>If the work doesn't meet your expectations:</p>
+            <div class="step">
+                <strong>Step 1:</strong> Clearly explain what needs to be changed in the chat
+            </div>
+            <div class="step">
+                <strong>Step 2:</strong> Provide specific feedback with examples if possible
+            </div>
+            <div class="step">
+                <strong>Step 3:</strong> Move the task back to "IN_PROGRESS" or "REVISION" status
+            </div>
+            <div class="step">
+                <strong>Step 4:</strong> The provider makes changes and resubmits
+            </div>
+            <p style="margin-top:16px"><strong>⚠️ Important:</strong> Be reasonable with revision requests. The provider accepted your terms for a specific price. Major scope changes may warrant renegotiation.</p>
+
+            <h3>Handling Issues &amp; Disputes</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Issue</th>
+                        <th>How to Handle</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Provider is unresponsive</td>
+                        <td>Wait 24 hours, then send a follow-up message. If no response after 48 hours, contact support.</td>
+                    </tr>
+                    <tr>
+                        <td>Work quality is poor</td>
+                        <td>Request revisions with specific feedback. If provider can't meet standards, reject and contact support.</td>
+                    </tr>
+                    <tr>
+                        <td>Deadline is at risk</td>
+                        <td>Communicate urgently via chat. Ask for status updates. Contact alternative providers if needed.</td>
+                    </tr>
+                    <tr>
+                        <td>Plagiarism suspected</td>
+                        <td>Request original work. Use plagiarism detection tools. Contact support with evidence.</td>
+                    </tr>
+                    <tr>
+                        <td>Scope creep</td>
+                        <td>Clarify in chat what's included in the original quote. Negotiate additional payment if needed.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>Reviewing &amp; Approving Work</h2>
+            <h3>When Work is Submitted</h3>
+            <p>The provider will upload their final deliverable and mark the task as "SUBMITTED". You'll receive a notification to review.</p>
+            <div class="step">
+                <strong>Step 1:</strong> Download and thoroughly review the work
+            </div>
+            <div class="step">
+                <strong>Step 2:</strong> Check against requirements: formatting, content quality, deadline compliance
+            </div>
+            <div class="step">
+                <strong>Step 3:</strong> Use plagiarism detection if concerned (Turnitin, Grammarly, etc.)
+            </div>
+            <div class="step">
+                <strong>Step 4:</strong> Decide: Approve or request revisions
+            </div>
+
+            <h3>Quality Checklist</h3>
+            <ul>
+                <li>✓ Meets all requirements listed in the assignment</li>
+                <li>✓ Proper formatting (font, spacing, margins, references)</li>
+                <li>✓ Correct citation style (APA, MLA, Chicago, etc.)</li>
+                <li>✓ No grammatical errors or typos</li>
+                <li>✓ Appropriate length (word count, pages)</li>
+                <li>✓ Addresses all rubric points if provided</li>
+                <li>✓ Original work (not plagiarized)</li>
+                <li>✓ Submitted on time</li>
+            </ul>
+
+            <h3>Approving the Work</h3>
+            <p>If the work meets your standards:</p>
+            <ul>
+                <li>Click "Approve" or "Mark as Complete"</li>
+                <li>Leave a positive rating and review (1-5 stars)</li>
+                <li>Share specific praise in your feedback</li>
+                <li>Payment is processed automatically</li>
+                <li>Task moves to "COMPLETED" status</li>
+            </ul>
+
+            <h3>Leaving a Rating &amp; Review</h3>
+            <p>Help build the TaskFlow community by providing honest feedback:</p>
+            <ul>
+                <li><strong>5 Stars:</strong> Excellent work, professional communication, on-time delivery</li>
+                <li><strong>4 Stars:</strong> Good work with minor issues; still meets expectations</li>
+                <li><strong>3 Stars:</strong> Acceptable work but with some problems; required revisions</li>
+                <li><strong>2 Stars:</strong> Poor quality; significant issues despite revisions</li>
+                <li><strong>1 Star:</strong> Unacceptable work; did not meet requirements at all</li>
+            </ul>
+            <p>Write a brief review (optional but helpful) highlighting strengths and areas for improvement.</p>
+        </div>
+
+        <div class="section">
+            <h2>Dashboard &amp; Task Management</h2>
+            <h3>Dashboard Overview</h3>
+            <p>Your dashboard displays:</p>
+            <ul>
+                <li><strong>Active Tasks:</strong> Tasks currently in progress</li>
+                <li><strong>Pending Tasks:</strong> Tasks waiting for quote acceptance</li>
+                <li><strong>Completed Tasks:</strong> Finished and approved work</li>
+                <li><strong>Total Spent:</strong> Cumulative spending on TaskFlow</li>
+                <li><strong>Average Provider Rating:</strong> Quality of work you're receiving</li>
+                <li><strong>On-Time Delivery Rate:</strong> % of tasks completed by deadline</li>
+            </ul>
+
+            <h3>Task Status Filters</h3>
+            <p>View tasks by their current status:</p>
+            <ul>
+                <li><strong>PENDING_QUOTE:</strong> Waiting for provider selection</li>
+                <li><strong>IN_PROGRESS:</strong> Provider is actively working</li>
+                <li><strong>SUBMITTED:</strong> Work uploaded, awaiting your review</li>
+                <li><strong>COMPLETED:</strong> Approved and finished</li>
+                <li><strong>REVISION:</strong> Returned for changes</li>
+            </ul>
+
+            <h3>Search &amp; Organization</h3>
+            <ul>
+                <li>Search tasks by title, keyword, or provider name</li>
+                <li>Filter by date range, subject, or budget</li>
+                <li>Sort by deadline, most recent, or status</li>
+                <li>Archive completed tasks for future reference</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Account Settings &amp; Preferences</h2>
+            <h3>Profile Management</h3>
+            <ul>
+                <li>Update your name, email, and contact information</li>
+                <li>Change your profile photo or bio</li>
+                <li>Update your subject preferences or fields of study</li>
+                <li>Add or update your organization details</li>
+            </ul>
+
+            <h3>Payment &amp; Billing</h3>
+            <p>Track your spending and payment history:</p>
+            <ul>
+                <li>View all completed transactions</li>
+                <li>Download invoices for personal records or tax purposes</li>
+                <li>Set a monthly budget limit (optional)</li>
+                <li>Manage payment methods and billing information</li>
+            </ul>
+
+            <h3>Notification Settings</h3>
+            <p>Customize how you're informed about task updates:</p>
+            <ul>
+                <li>Email alerts when providers submit quotes</li>
+                <li>Chat message notifications</li>
+                <li>Task deadline reminders</li>
+                <li>Work submission alerts</li>
+                <li>Weekly summary reports</li>
+            </ul>
+
+            <h3>Security &amp; Privacy</h3>
+            <ul>
+                <li>Use a strong, unique password</li>
+                <li>Enable two-factor authentication if available</li>
+                <li>Review login history for suspicious activity</li>
+                <li>Don't share account credentials</li>
+                <li>Be cautious about personal information in task descriptions</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Best Practices &amp; Tips for Success</h2>
+
+            <div class="feature-box">
+                <h4>✓ Write Clear Task Descriptions</h4>
+                <p>The better you explain your needs, the better the quotes you'll receive. Include rubrics, samples, and specific requirements. Let AI help identify missing info.</p>
+            </div>
+
+            <div class="feature-box">
+                <h4>✓ Set Realistic Budgets</h4>
+                <p>Research typical rates for your task type. Paying too little attracts inexperienced providers. Paying fairly attracts quality work.</p>
+            </div>
+
+            <div class="feature-box">
+                <h4>✓ Build Long-Term Relationships</h4>
+                <p>After finding a great provider, contact them directly for future tasks. Repeat customers often offer better rates and quality.</p>
+            </div>
+
+            <div class="feature-box">
+                <h4>✓ Communicate Proactively</h4>
+                <p>Don't wait for updates. Check in periodically. Provide feedback on drafts. Answer provider questions quickly.</p>
+            </div>
+
+            <div class="feature-box">
+                <h4>✓ Plan Ahead</h4>
+                <p>Post tasks at least 3-5 days before your actual deadline. This gives providers time to bid and you time to review and request revisions.</p>
+            </div>
+
+            <div class="feature-box">
+                <h4>✓ Leave Honest Reviews</h4>
+                <p>Detailed, constructive feedback helps the platform and future distributors. Be fair—acknowledge good work and specific issues.</p>
+            </div>
+
+            <div class="feature-box">
+                <h4>✓ Verify Quality</h4>
+                <p>Always check for plagiarism, formatting, and accuracy before approving. Use plagiarism detection tools if available. Your grade is at stake.</p>
+            </div>
+
+            <div class="feature-box">
+                <h4>✓ Know Your Rights</h4>
+                <p>Request revisions if work doesn't meet specs. Don't approve substandard work just to move on. Providers should meet the agreed-upon quality.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Frequently Asked Questions</h2>
+
+            <div class="faq">
+                <div class="faq-q">Q: How quickly will I receive quotes after posting a task?</div>
+                <div class="faq-a">A: It depends on demand and timing. You may receive quotes within minutes, or it may take hours. Quality quotes often come within the first 24 hours. Wait at least 24 hours before accepting to give more providers a chance to bid.</div>
+            </div>
+
+            <div class="faq">
+                <div class="faq-q">Q: Can I change the budget or deadline after posting a task?</div>
+                <div class="faq-a">A: This depends on your platform settings. It's generally recommended not to change terms after posting, as it may confuse providers. Contact support if you need to modify a task.</div>
+            </div>
+
+            <div class="faq">
+                <div class="faq-q">Q: What if I'm not satisfied with a provider's work?</div>
+                <div class="faq-a">A: Request revisions with specific feedback. If the provider still can't meet your standards, you can reject the work and contact another provider. Be fair—explain exactly what's wrong.</div>
+            </div>
+
+            <div class="faq">
+                <div class="faq-q">Q: Can I accept a quote and then cancel later?</div>
+                <div class="faq-a">A: Yes, but it's not recommended. Canceling after acceptance may harm your reputation and the provider's ability to work. If you must cancel, communicate immediately with a good reason and consider partial payment as compensation.</div>
+            </div>
+
+            <div class="faq">
+                <div class="faq-q">Q: How do I prevent plagiarism?</div>
+                <div class="faq-a">A: Always check submitted work with plagiarism detection software (Turnitin, Grammarly, etc.). Ask providers for original work only. You can request proof of originality if suspicious. Never approve work without verification.</div>
+            </div>
+
+            <div class="faq">
+                <div class="faq-q">Q: Can I contact a provider directly outside of TaskFlow?</div>
+                <div class="faq-a">A: It's better to keep all communication within TaskFlow for your protection and record-keeping. However, you can exchange contact info privately after the task is completed if both parties agree.</div>
+            </div>
+
+            <div class="faq">
+                <div class="faq-q">Q: What happens if a provider doesn't meet the deadline?</div>
+                <div class="faq-a">A: Check in via chat immediately. If they're close to finishing, give them a small extension. If they abandon the task, reject their work and hire someone else. Document everything for support if needed.</div>
+            </div>
+
+            <div class="faq">
+                <div class="faq-q">Q: How are my files stored and protected?</div>
+                <div class="faq-a">A: All files are stored securely in Google Drive. They're encrypted and only accessible to you and the assigned provider. Files are deleted when the task is completed or after 30 days of inactivity, per your privacy settings.</div>
+            </div>
+
+            <div class="faq">
+                <div class="faq-q">Q: Can I reuse a provider for multiple tasks?</div>
+                <div class="faq-a">A: Absolutely! If you had a great experience, contact them directly or mention them in future task postings. Many providers prefer working with returning customers and may offer better rates for loyalty.</div>
+            </div>
+
+            <div class="faq">
+                <div class="faq-q">Q: What if there's a dispute or disagreement over payment?</div>
+                <div class="faq-a">A: Contact TaskFlow support with evidence of the issue. Our team will review the task, messages, and work submitted to help resolve the dispute fairly.</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Common Mistakes to Avoid</h2>
+
+            <div class="warning">
+                <strong>⚠️ Mistake #1: Vague Task Descriptions</strong>
+                <p>Posting "I need an essay" without details leads to poor quotes and work. Be specific about requirements, format, length, and deadlines.</p>
+            </div>
+
+            <div class="warning">
+                <strong>⚠️ Mistake #2: Choosing Only by Price</strong>
+                <p>The cheapest quote isn't always the best. Quality matters more than cost. A $5 essay that fails is worse than a $30 essay that gets an A.</p>
+            </div>
+
+            <div class="warning">
+                <strong>⚠️ Mistake #3: Setting Impossible Deadlines</strong>
+                <p>Expecting a 5000-word research paper in 12 hours is unrealistic. Good work takes time. Set deadlines at least 3 days before your actual due date.</p>
+            </div>
+
+            <div class="warning">
+                <strong>⚠️ Mistake #4: Poor Communication</strong>
+                <p>Not responding to provider questions or updates breeds confusion and poor results. Check messages daily and respond promptly.</p>
+            </div>
+
+            <div class="warning">
+                <strong>⚠️ Mistake #5: Approving Without Review</strong>
+                <p>Always verify work quality, plagiarism, and adherence to requirements before approving. Don't approve just to finish—your grade depends on it.</p>
+            </div>
+
+            <div class="warning">
+                <strong>⚠️ Mistake #6: Scope Creep</strong>
+                <p>Don't keep asking for "one more thing" or major revisions after the provider completed the original scope. This damages relationships and may warrant additional payment.</p>
+            </div>
+
+            <div class="warning">
+                <strong>⚠️ Mistake #7: Ignoring Plagiarism Concerns</strong>
+                <p>If work seems suspicious or too polished, verify it. Use plagiarism detection. Never submit potentially plagiarized work as your own.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Support &amp; Contact</h2>
+            <p>If you need help or encounter issues:</p>
+            <ul>
+                <li><strong>In-App Support:</strong> Use chat to communicate with providers about specific tasks</li>
+                <li><strong>Help Center:</strong> Browse FAQs and articles in the TaskFlow Help portal</li>
+                <li><strong>Email Support:</strong> Contact support@taskflow.app with details of your issue</li>
+                <li><strong>Dispute Resolution:</strong> TaskFlow mediates disputes between distributors and providers</li>
+            </ul>
+            <p style="margin-top:16px">We're committed to helping you get high-quality work. Don't hesitate to reach out!</p>
+        </div>
+
+        <footer>
+            Made with IBM Bob
+        </footer>
+    </div>
+</body>
+</html>

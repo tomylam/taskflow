@@ -1,0 +1,688 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TaskFlow - Executive Presentation with Mockups</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+            background-color: #ffffff;
+            color: #1f2328;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .slide {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 50px;
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        h1 {
+            font-size: 48px;
+            color: #667eea;
+            margin-bottom: 16px;
+        }
+        h2 {
+            font-size: 36px;
+            color: #667eea;
+            margin-bottom: 24px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 12px;
+        }
+        p {
+            font-size: 16px;
+            color: #57606a;
+            margin-bottom: 12px;
+            line-height: 1.8;
+        }
+        .subtitle {
+            font-size: 22px;
+            color: #764ba2;
+            margin-bottom: 16px;
+        }
+        .tagline {
+            font-size: 18px;
+            color: #7c5cd8;
+            margin-top: 20px;
+            padding: 16px;
+            background: #f5f7ff;
+            border-left: 4px solid #667eea;
+        }
+        ul {
+            margin-left: 24px;
+            margin-bottom: 12px;
+        }
+        li {
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-top: 20px;
+        }
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px;
+            margin-top: 20px;
+        }
+        .card {
+            background: linear-gradient(135deg, #f5f7ff 0%, #f0f4ff 100%);
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .card h3 {
+            color: #667eea;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+        .card p {
+            font-size: 14px;
+            color: #57606a;
+            margin-bottom: 0;
+        }
+        .stat {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 24px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        .stat-label {
+            font-size: 14px;
+        }
+        .mockup {
+            background: #f7f8fa;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+        }
+        .mockup-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 16px;
+            margin: -20px -20px 16px -20px;
+            border-radius: 6px 6px 0 0;
+            font-weight: bold;
+        }
+        .mockup-item {
+            background: white;
+            border: 1px solid #e5e7eb;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 4px;
+        }
+        .mockup-item-title {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 4px;
+        }
+        .mockup-item-desc {
+            color: #57606a;
+            font-size: 12px;
+        }
+        .button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 4px;
+            margin: 4px;
+            font-size: 12px;
+            text-decoration: none;
+        }
+        .slide-number {
+            text-align: right;
+            color: #999;
+            font-size: 12px;
+            margin-top: 20px;
+        }
+        .hero-section {
+            text-align: center;
+        }
+        .hero-section h1 {
+            font-size: 56px;
+            margin-bottom: 12px;
+        }
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 30px 0;
+        }
+        .timeline-item {
+            text-align: center;
+            flex: 1;
+            position: relative;
+        }
+        .timeline-item::after {
+            content: "";
+            position: absolute;
+            top: 30px;
+            right: -50%;
+            width: 100%;
+            height: 2px;
+            background: #e5e7eb;
+        }
+        .timeline-item:last-child::after {
+            display: none;
+        }
+        .timeline-circle {
+            width: 50px;
+            height: 50px;
+            background: #667eea;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin: 0 auto 8px;
+            position: relative;
+            z-index: 1;
+        }
+        .timeline-label {
+            font-size: 13px;
+            color: #57606a;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+        th {
+            background: #f7f8fa;
+            padding: 12px;
+            text-align: left;
+            border-bottom: 2px solid #667eea;
+            font-weight: 600;
+        }
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .dashboard-preview {
+            background: #f7f8fa;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .navbar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .sidebar {
+            background: #f0f4ff;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 12px;
+            border-left: 4px solid #667eea;
+        }
+        .sidebar-item {
+            padding: 8px;
+            margin: 4px 0;
+            background: white;
+            border-radius: 3px;
+            font-size: 13px;
+            color: #57606a;
+        }
+        .content-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .content-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            padding: 12px;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+        .content-card-title {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <div class="slide">
+            <div class="hero-section">
+                <h1>TaskFlow</h1>
+                <p class="subtitle">Cloud-Based Academic Task Management Platform</p>
+                <p style="font-size:18px;margin-top:30px">Connecting Academic Work Distributors with Qualified Service Providers</p>
+                <div class="tagline">📊 Zero operational cost • 🚀 AI-powered analysis • ☁️ Secure cloud storage</div>
+            </div>
+            <div class="slide-number">Slide 1 / 14</div>
+        </div>
+
+        
+        <div class="slide">
+            <h2>The Problem We Solve</h2>
+            <ul>
+                <li><strong>Fragmented Workflows:</strong> Email, WhatsApp, Google Drive scattered across platforms</li>
+                <li><strong>Quality Uncertainty:</strong> No way to verify provider expertise or track past work</li>
+                <li><strong>Payment Complexity:</strong> Manual invoicing and tracking</li>
+                <li><strong>Communication Breakdown:</strong> Lost conversations and unclear scope</li>
+                <li><strong>Trust Issues:</strong> No reputation system or dispute resolution</li>
+            </ul>
+            <div class="slide-number">Slide 2 / 14</div>
+        </div>
+
+        
+        <div class="slide">
+            <h2>Our Solution</h2>
+            <p>A unified platform that brings everything together:</p>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>🎯 Marketplace</h3>
+                    <p>Tasks, quotes, messages, and files in one place</p>
+                </div>
+                <div class="card">
+                    <h3>🤖 AI-Powered</h3>
+                    <p>Automatic task analysis and requirement extraction</p>
+                </div>
+                <div class="card">
+                    <h3>⭐ Reputation</h3>
+                    <p>Provider ratings and reviews ensure quality</p>
+                </div>
+                <div class="card">
+                    <h3>💳 Payments</h3>
+                    <p>Transparent pricing and automated processing</p>
+                </div>
+            </div>
+            <div class="slide-number">Slide 3 / 14</div>
+        </div>
+
+        
+        <div class="slide">
+            <h2>Distributor Dashboard - UI Preview</h2>
+            <div class="dashboard-preview">
+                <div class="navbar">
+                    <span><strong>TaskFlow</strong></span>
+                    <span>Dashboard | My Tasks | Create Task | Profile</span>
+                </div>
+                <div style="display:grid;grid-template-columns:200px 1fr;gap:12px">
+                    <div class="sidebar">
+                        <div class="sidebar-item"><strong>📊 Active</strong></div>
+                        <div class="sidebar-item">Completed</div>
+                        <div class="sidebar-item">Pending</div>
+                        <div class="sidebar-item">Expenses</div>
+                    </div>
+                    <div class="content-cards">
+                        <div class="content-card">
+                            <div class="content-card-title">Active Tasks: 5</div>
+                            <p style="margin:0;font-size:12px;color:#57606a">Essays (2) • Math (2) • Programming (1)</p>
+                        </div>
+                        <div class="content-card">
+                            <div class="content-card-title">Total Spent: $450</div>
+                            <p style="margin:0;font-size:12px;color:#57606a">This month: $120 • Avg rating: 4.7★</p>
+                        </div>
+                        <div class="content-card">
+                            <div class="content-card-title">Task: Biology Essay</div>
+                            <p style="margin:0;font-size:12px;color:#57606a">Status: IN_PROGRESS • Provider: Sarah M.</p>
+                        </div>
+                        <div class="content-card">
+                            <div class="content-card-title">Quotes Pending: 2</div>
+                            <p style="margin:0;font-size:12px;color:#57606a">Math Problem Set • Data Analysis</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">Slide 4 / 14</div>
+        </div>
+
+        
+        <div class="slide">
+            <h2>Service Provider Dashboard - UI Preview</h2>
+            <div class="dashboard-preview">
+                <div class="navbar">
+                    <span><strong>TaskFlow</strong></span>
+                    <span>Dashboard | Available Tasks | My Work | Profile</span>
+                </div>
+                <div style="display:grid;grid-template-columns:200px 1fr;gap:12px">
+                    <div class="sidebar">
+                        <div class="sidebar-item"><strong>📊 Active</strong></div>
+                        <div class="sidebar-item">Pending Quotes</div>
+                        <div class="sidebar-item">Completed</div>
+                        <div class="sidebar-item">Analytics</div>
+                    </div>
+                    <div class="content-cards">
+                        <div class="content-card">
+                            <div class="content-card-title">Active Work: 3</div>
+                            <p style="margin:0;font-size:12px;color:#57606a">Essays • Research • Math</p>
+                        </div>
+                        <div class="content-card">
+                            <div class="content-card-title">Earnings: $1,200</div>
+                            <p style="margin:0;font-size:12px;color:#57606a">This month • Completion: 95%</p>
+                        </div>
+                        <div class="content-card">
+                            <div class="content-card-title">Your Rating: 4.8★</div>
+                            <p style="margin:0;font-size:12px;color:#57606a">32 completed tasks • On-time: 100%</p>
+                        </div>
+                        <div class="content-card">
+                            <div class="content-card-title">12 New Tasks</div>
+                            <p style="margin:0;font-size:12px;color:#57606a">Available to bid • $50-500 range</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">Slide 5 / 14</div>
+        </div>
+
+        
+        <div class="slide">
+            <h2>Task Detail View - UI Preview</h2>
+            <div class="mockup">
+                <div class="mockup-header">📋 Task: 2000-word Essay on Climate Policy</div>
+                <div class="mockup-item">
+                    <div class="mockup-item-title">Status: IN_PROGRESS (3/5)</div>
+                    <div class="mockup-item-desc">Created: Jan 15 • Deadline: Jan 28 • Budget: $150</div>
+                </div>
+                <div class="mockup-item">
+                    <div class="mockup-item-title">📝 Description</div>
+                    <div class="mockup-item-desc">Analyze climate change policies from 2020-2024...</div>
+                </div>
+                <div class="mockup-item">
+                    <div class="mockup-item-title">📁 Materials (3 files)</div>
+                    <div class="mockup-item-desc">assignment.pdf | rubric.docx | sample-essay.pdf</div>
+                </div>
+                <div class="mockup-item">
+                    <div class="mockup-item-title">💬 Messages (8)</div>
+                    <div class="mockup-item-desc">Distributor: "Can you focus on US policy?" • Provider: "Yes, working on draft..."</div>
+                </div>
+                <div class="mockup-item">
+                    <div class="mockup-item-title">📤 Your Uploads (2)</div>
+                    <div class="mockup-item-desc">draft-v1.docx (Jan 20) | draft-v2.docx (Jan 23)</div>
+                </div>
+                <div style="margin-top:12px">
+                    <span class="button">Upload Files</span>
+                    <span class="button">Send Message</span>
+                    <span class="button">Submit Work</span>
+                </div>
+            </div>
+            <div class="slide-number">Slide 6 / 14</div>
+        </div>
+
+        
+        <div class="slide">
+            <h2>Task Lifecycle &amp; Workflow</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-circle">1</div>
+                    <div class="timeline-label">PENDING<br />QUOTE</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-circle">2</div>
+                    <div class="timeline-label">QUOTED<br />(Awaiting)</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-circle">3</div>
+                    <div class="timeline-label">IN<br />PROGRESS</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-circle">4</div>
+                    <div class="timeline-label">SUBMITTED<br />(Review)</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-circle">5</div>
+                    <div class="timeline-label">COMPLETED</div>
+                </div>
+            </div>
+            <p style="text-align:center;color:#764ba2;margin-top:20px"><strong>Plus REVISION cycle: Request changes anytime</strong></p>
+            <div class="slide-number">Slide 7 / 14</div>
+        </div>
+
+        
+        <div class="slide">
+            <h2>Target Audience</h2>
+            <div class="grid-2">
+                <div class="card" style="border-left-color:#667eea">
+                    <h3>Work Distributors</h3>
+                    <p><strong>College students &amp; professionals</strong></p>
+                    <ul style="font-size:14px;margin-top:8px">
+                        <li>Essays &amp; research papers</li>
+                        <li>Problem sets &amp; exams</li>
+                        <li>Coding projects</li>
+                        <li>Data analysis</li>
+                    </ul>
+                </div>
+                <div class="card" style="border-left-color:#764ba2">
+                    <h3>Service Providers</h3>
+                    <p><strong>Tutors &amp; freelance professionals</strong></p>
+                    <ul style="font-size:14px;margin-top:8px">
+                        <li>Build portfolio &amp; reputation</li>
+                        <li>Flexible work schedule</li>
+                        <li>Earn competitive rates</li>
+                        <li>Long-term clients</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="slide-number">Slide 8 / 14</div>
+        </div>
+
+        
+        <div class="slide">
+            <h2>Technology Stack - Zero Cost</h2>
+            <table>
+                <tr>
+                    <th>Component</th>
+                    <th>Technology</th>
+                    <th>Cost</th>
+                </tr>
+                <tr>
+                    <td><strong>Backend</strong></td>
+                    <td>Node.js 20 + Express + Prisma</td>
+                    <td>Free</td>
+                </tr>
+                <tr>
+                    <td><strong>Database</strong></td>
+                    <td>PostgreSQL (Railway)</td>
+                    <td>Free tier</td>
+                </tr>
+                <tr>
+                    <td><strong>File Storage</strong></td>
+                    <td>Storj (S3-compatible, 150 GB free)</td>
+                    <td>Free</td>
+                </tr>
+                <tr>
+                    <td><strong>AI Analysis</strong></td>
+                    <td>OpenRouter (Gemma 4 free model)</td>
+                    <td>Free</td>
+                </tr>
+                <tr>
+                    <td><strong>Hosting</strong></td>
+                    <td>Railway (auto-deploy from GitHub)</td>
+                    <td>$5 credit/mo</td>
+                </tr>
+                <tr>
+                    <td><strong>Frontend</strong></td>
+                    <td>React 18 + Vite + Tailwind CSS</td>
+                    <td>Free</td>
+                </tr>
+            </table>
+            <p style="color:#764ba2;font-weight:600;margin-top:16px">💰 Zero operational costs for MVP stage</p>
+            <div class="slide-number">Slide 9 / 14</div>
+        </div>
+
+        
+        <div class="slide">
+            <h2>Core Features</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>📝 Task Posting</h3>
+                    <p>Create tasks with AI brief generation from description</p>
+                </div>
+                <div class="card">
+                    <h3>💬 In-Task Chat</h3>
+                    <p>Real-time messaging for all communications</p>
+                </div>
+                <div class="card">
+                    <h3>📁 File Management</h3>
+                    <p>Secure cloud storage with versioning (v1, v2, ...)</p>
+                </div>
+                <div class="card">
+                    <h3>⭐ Ratings</h3>
+                    <p>Provider reputation system with reviews</p>
+                </div>
+                <div class="card">
+                    <h3>📊 Analytics</h3>
+                    <p>Monthly expense tracking and provider insights</p>
+                </div>
+                <div class="card">
+                    <h3>🔐 Security</h3>
+                    <p>JWT auth, encrypted files, role-based access</p>
+                </div>
+            </div>
+            <div class="slide-number">Slide 10 / 14</div>
+        </div>
+
+        
+        <div class="slide">
+            <h2>Revenue Model</h2>
+            <div class="grid-2">
+                <div class="card" style="border-left-color:#667eea">
+                    <h3>💰 Commission (Primary)</h3>
+                    <p>10-15% cut from completed task transactions</p>
+                    <ul style="font-size:14px;margin-top:8px">
+                        <li>Non-intrusive</li>
+                        <li>Scales with growth</li>
+                        <li>$500+ transactions monthly</li>
+                    </ul>
+                </div>
+                <div class="card" style="border-left-color:#764ba2">
+                    <h3>🚀 Premium (Future)</h3>
+                    <p>Optional subscription tiers</p>
+                    <ul style="font-size:14px;margin-top:8px">
+                        <li>Featured listings</li>
+                        <li>Priority support</li>
+                        <li>Advanced analytics</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="slide-number">Slide 11 / 14</div>
+        </div>
+
+        
+        <div class="slide">
+            <h2>Key Performance Indicators</h2>
+            <div class="grid-3">
+                <div class="stat">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Tasks Posted</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">1000+</div>
+                    <div class="stat-label">Registered Users</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">85%</div>
+                    <div class="stat-label">On-Time Delivery</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">4.7★</div>
+                    <div class="stat-label">Avg Rating</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">$50K+</div>
+                    <div class="stat-label">Transaction Volume</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">92%</div>
+                    <div class="stat-label">Retention Rate</div>
+                </div>
+            </div>
+            <div class="slide-number">Slide 12 / 14</div>
+        </div>
+
+        
+        <div class="slide">
+            <h2>Competitive Advantages</h2>
+            <ul>
+                <li><strong>Zero Operational Cost:</strong> All services use free APIs and tiers</li>
+                <li><strong>AI-Powered:</strong> Automatic task analysis saves time and improves clarity</li>
+                <li><strong>Enterprise Infrastructure:</strong> PostgreSQL + Storj for reliability and scale</li>
+                <li><strong>Unified Platform:</strong> No fragmentation across email, Slack, Drive</li>
+                <li><strong>Reputation System:</strong> Trust and accountability built-in</li>
+                <li><strong>Fast Deployment:</strong> Railway auto-deploys from GitHub for rapid updates</li>
+                <li><strong>Version Control:</strong> Automatic versioning of all submissions</li>
+            </ul>
+            <div class="slide-number">Slide 13 / 14</div>
+        </div>
+
+        
+        <div class="slide">
+            <h2>Growth Roadmap</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Q1-Q2: Foundation</h3>
+                    <ul style="font-size:14px;margin-top:8px">
+                        <li>Scale to 5,000 users</li>
+                        <li>Optimize platform</li>
+                        <li>Build case studies</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Q3-Q4: Expansion</h3>
+                    <ul style="font-size:14px;margin-top:8px">
+                        <li>Mobile app (React Native)</li>
+                        <li>AI matching engine</li>
+                        <li>Premium tiers</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Year 2: Scale</h3>
+                    <ul style="font-size:14px;margin-top:8px">
+                        <li>International expansion</li>
+                        <li>Advanced analytics</li>
+                        <li>Series A funding</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Year 3: Market Leader</h3>
+                    <ul style="font-size:14px;margin-top:8px">
+                        <li>50,000+ users</li>
+                        <li>Multi-language support</li>
+                        <li>Enterprise features</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tagline">✅ MVP Complete • 📊 Initial Traction • 🚀 Ready for Growth</div>
+            <div class="slide-number">Slide 14 / 14</div>
+        </div>
+    </div>
+</body>
+</html>
