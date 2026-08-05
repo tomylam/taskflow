@@ -1,19 +1,27 @@
 # TaskFlow — Cloud-Based Academic Task Manager
 
-A full-stack web application for managing outsourced university assignments between a **Work Distributor** and **Service Providers**, with AI-powered task analysis and Storj cloud file storage.
+A full-stack web application for managing outsourced university assignments between a **Work Distributor** and **Service Providers**, with Storj cloud file storage.
+
+---
+
+## 🌐 Live Deployment
+
+| Service | URL |
+|---|---|
+| Frontend | https://taskflow-frontend-mocha-tau.vercel.app |
+| Backend | https://taskflow-backend-68rs.onrender.com |
+| Health check | https://taskflow-backend-68rs.onrender.com/api/health |
 
 ---
 
 ## Stack
 
-| Layer | Technology | Cost |
-|---|---|---|
-| Backend | Node.js 20 + Express + Prisma (ORM) | Free |
-| Database | PostgreSQL (Railway plugin) | Free tier |
-| File Storage | **Storj** (S3-compatible, 150 GB free) | **Free** (150 GB storage · 150 GB/mo bandwidth · no file size limit) |
-| AI Analysis | **OpenRouter** — Gemma 4 free model | **Free** (no credit card) |
-| Hosting | Railway | Free tier (~$5 credit/mo) |
-| Frontend | React 18 + Vite + Tailwind CSS | Free (static) |
+| Layer | Technology | Hosting | Cost |
+|---|---|---|---|
+| Frontend | React 18 + Vite + Tailwind CSS | Vercel | Free |
+| Backend | Node.js 20 + Express + Prisma | Render | Free |
+| Database | PostgreSQL | Neon | Free |
+| File Storage | Storj (S3-compatible, 150 GB free) | Storj | Free |
 
 ---
 
@@ -23,11 +31,10 @@ A full-stack web application for managing outsourced university assignments betw
 taskflow/
 ├── backend/
 │   ├── prisma/schema.prisma       ← 7-model DB schema (User, Task, TaskFile, Quote, Revision, TaskStage, Message)
-│   ├── nixpacks.toml              ← Railway build config
+│   ├── render.yaml                ← Render deployment config
 │   └── src/
 │       ├── lib/
 │       │   ├── drive.ts           ← Storj S3-compatible upload (Materials / Submitted Work/v<n>)
-│       │   ├── llm.ts             ← OpenRouter LLM task analyser
 │       │   ├── jwt.ts
 │       │   └── prisma.ts
 │       ├── middleware/
@@ -40,6 +47,7 @@ taskflow/
 │           ├── messages.ts        ← in-task chat
 │           └── expenses.ts        ← monthly expense analytics
 └── frontend/
+    ├── vercel.json                ← SPA routing config for Vercel
     └── src/
         ├── components/            ← Layout · TaskCard · StatusTimeline · FileDropzone · MessageThread
         ├── pages/                 ← Login · Register · Dashboard · CreateTask · TaskDetail · Expenses
@@ -74,9 +82,7 @@ Providers must upload **at least one file** when submitting. Each submission is 
 
 ---
 
-## ☁️ Deploy to Railway (Recommended)
-
-Railway gives you a free PostgreSQL database and auto-deploys from GitHub.
+## ☁️ Deploy (Vercel + Render + Neon)
 
 ### Step 1 — Push code to GitHub
 
@@ -89,48 +95,54 @@ git remote add origin https://github.com/YOUR_USERNAME/taskflow.git
 git push -u origin main
 ```
 
-### Step 2 — Create Railway project
+> **Note:** GitHub no longer accepts passwords — use a Personal Access Token.
+> Go to github.com → Settings → Developer settings → Personal access tokens → Generate new token (check `repo` scope). Use the token as your password when pushing.
 
-1. Go to [railway.app](https://railway.app) → **New Project** → **Deploy from GitHub repo**
-2. Select your `taskflow` repo
+### Step 2 — Create Neon database (free PostgreSQL)
 
-### Step 3 — Add a PostgreSQL database
+1. Go to [neon.tech](https://neon.tech) → **New Project** → name it `taskflow`
+2. Copy the connection string: `postgresql://...`  — you'll need this as `DATABASE_URL`
 
-In your Railway project dashboard:
-- Click **+ New** → **Database** → **PostgreSQL**
-- Railway automatically injects `DATABASE_URL` — no copy/paste needed
+### Step 3 — Deploy Backend on Render
 
-### Step 4 — Configure the Backend service
-
-In Railway, select the **backend** service → **Variables** tab. Add:
+1. Go to [render.com](https://render.com) → **New Web Service** → connect your GitHub repo
+2. Configure:
+   - **Root Directory**: `backend`
+   - **Build Command**: `npm install && npm run build`
+   - **Start Command**: `npm start`
+   - **Instance Type**: Free
+3. Add environment variables:
 
 | Variable | Value |
 |---|---|
+| `DATABASE_URL` | Neon connection string from Step 2 |
 | `JWT_SECRET` | Any long random string |
-| `OPENROUTER_API_KEY` | Your key from [openrouter.ai](https://openrouter.ai) |
 | `STORJ_ENDPOINT` | `https://gateway.storjshare.io` |
 | `STORJ_ACCESS_KEY` | Storj S3 access key ID |
 | `STORJ_SECRET_KEY` | Storj S3 secret key |
 | `STORJ_BUCKET` | Your bucket name (e.g. `taskflow`) |
-| `STORJ_LINK_ACCESS` | Storj linksharing access grant *(see Storj setup below)* |
+| `STORJ_LINK_ACCESS` | Storj linksharing access grant |
 
-In the **Settings** tab:
-- **Root Directory**: `backend`
-- **Build command**: `npm run build`
-- **Start command**: `npm start` *(auto-runs DB migrations on every deploy)*
+### Step 4 — Deploy Frontend on Vercel
 
-### Step 5 — Configure the Frontend service
+1. Go to [vercel.com](https://vercel.com) → **Add New Project** → import your repo
+2. Configure:
+   - **Root Directory**: `frontend`
+   - **Framework Preset**: Vite
+   - **Output Directory**: `dist`
+3. Add environment variable:
 
-Add a **second service** from the same repo:
-- **Root Directory**: `frontend`
-- **Build command**: `npm run build`
-- **Start command**: `npm run preview -- --host 0.0.0.0 --port $PORT`
-- Add variable: `VITE_API_BASE_URL` = `https://<your-backend-railway-url>/api`
+| Variable | Value |
+|---|---|
+| `VITE_API_BASE_URL` | `https://<your-render-backend-url>/api` |
 
-### Step 6 — Seed demo accounts (optional)
+### Step 5 — Seed demo accounts
 
-In Railway → Backend service → **Shell** tab:
+Run from your local machine (with `DATABASE_URL` pointing at Neon in `backend/.env`):
+
 ```bash
+cd backend
+npx prisma generate
 npm run db:seed
 ```
 
@@ -138,15 +150,14 @@ npm run db:seed
 
 ## 🔑 Getting Your Free Credentials
 
-### OpenRouter (AI Analysis) — FREE
+### Neon (PostgreSQL) — FREE forever
 
-1. Go to [openrouter.ai](https://openrouter.ai) → **Sign in** → **Keys** → **Create key**
-2. Copy the key (starts with `sk-or-v1-`)
-3. Free tier uses `google/gemma-4-26b-a4b-it:free` — no credit card required
+1. Go to [neon.tech](https://neon.tech) → sign up → **New Project**
+2. Copy the `postgresql://...` connection string from the dashboard
 
 ### Storj (File Storage) — FREE
 
-1. Sign up at [storj.io](https://storj.io) → create an account
+1. Sign up at [storj.io](https://storj.io)
 2. **Create a bucket** (e.g. `taskflow`) — set it to **public**
 3. **S3 credentials** — Buckets → your bucket → **Access** → **Create S3 Credentials**:
    - Copy `Endpoint` → `STORJ_ENDPOINT`
@@ -156,7 +167,7 @@ npm run db:seed
    - Permission: **Download only** · Bucket: `taskflow`
    - Click **Generate** → copy the access grant string → `STORJ_LINK_ACCESS`
 
-**Free tier:** 150 GB storage · 150 GB/month bandwidth · no per-file size limit · all file types
+**Free tier:** 150 GB storage · 150 GB/month bandwidth · no per-file size limit
 
 ---
 
@@ -171,10 +182,9 @@ cd ../frontend && npm install
 
 # 2. Configure backend env
 cp .env.example backend/.env
-# Edit backend/.env — minimum required:
+# Edit backend/.env — set at minimum:
 #   DATABASE_URL="file:./dev.db"        ← SQLite for local dev
 #   JWT_SECRET="any-local-secret"
-#   OPENROUTER_API_KEY="sk-or-v1-..."
 #   STORJ_ENDPOINT="https://gateway.storjshare.io"
 #   STORJ_ACCESS_KEY="your-access-key"
 #   STORJ_SECRET_KEY="your-secret-key"
@@ -182,8 +192,8 @@ cp .env.example backend/.env
 #   STORJ_LINK_ACCESS="your-link-access-grant"
 
 # 3. Switch schema to SQLite (local only)
-# In backend/prisma/schema.prisma:
-#   provider = "sqlite"    (change from "postgresql")
+# In backend/prisma/schema.prisma change:
+#   provider = "sqlite"
 
 # 4. Migrate & seed
 cd backend
@@ -210,7 +220,6 @@ cd ../frontend && npm run dev        # frontend → http://localhost:5173
 
 ### Work Distributor
 - Create tasks with title, description, task type, word count, deadline, university
-- AI-powered task brief generated automatically from the description (OpenRouter)
 - Upload reference materials (stored in `Materials/` on Storj)
 - Review and accept/reject provider quotes
 - Request revisions with written feedback
@@ -239,7 +248,7 @@ cd ../frontend && npm run dev        # frontend → http://localhost:5173
 | POST | `/api/auth/register` | — | Register new account |
 | POST | `/api/auth/login` | — | Login → JWT token |
 | GET | `/api/tasks` | Any | List tasks (filterable by status, type) |
-| POST | `/api/tasks` | Distributor | Create task + AI analysis + upload materials |
+| POST | `/api/tasks` | Distributor | Create task + upload materials |
 | GET | `/api/tasks/:id` | Any | Task detail (files, quotes, messages, stages) |
 | PATCH | `/api/tasks/:id/status` | Any | Advance task state machine |
 | PATCH | `/api/tasks/:id/seen` | Distributor | Mark task as seen (clears red dot) |
