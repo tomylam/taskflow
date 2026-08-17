@@ -150,7 +150,7 @@ export default function TaskDetailPage() {
 
   // ── Helpers ───────────────────────────────────────────
 
-  const myQuote = task?.quotes.find((q) => q.providerId === user?.id);
+  const myActiveQuote = task?.quotes.find((q) => q.providerId === user?.id && q.status !== 'REJECTED');
   const acceptedQuote = task?.quotes.find((q) => q.status === 'ACCEPTED');
   const isOverdue = task?.deadline && new Date(task.deadline) < new Date() && task.status !== 'COMPLETED';
 
@@ -279,7 +279,7 @@ export default function TaskDetailPage() {
             </h3>
 
             {/* Provider: submit quote */}
-            {isProvider && task.status === 'PENDING_QUOTE' && !myQuote && (
+            {isProvider && task.status === 'PENDING_QUOTE' && !myActiveQuote && (
               <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4 space-y-3">
                 <p className="text-sm font-medium text-blue-800">Submit your quote for this task</p>
                 <div className="flex gap-3">
@@ -327,16 +327,16 @@ export default function TaskDetailPage() {
               </div>
             )}
 
-            {myQuote && isProvider && (
-              <div className={`rounded-lg border p-3 mb-3 text-sm
-                ${myQuote.status === 'ACCEPTED' ? 'bg-green-50 border-green-200 text-green-800' : ''}
-                ${myQuote.status === 'REJECTED' ? 'bg-red-50 border-red-200 text-red-700' : ''}
-                ${myQuote.status === 'PENDING' ? 'bg-yellow-50 border-yellow-200 text-yellow-800' : ''}
+            {isProvider && task.quotes.filter((q) => q.providerId === user?.id).map((q) => (
+              <div key={q.id} className={`rounded-lg border p-3 mb-3 text-sm
+                ${q.status === 'ACCEPTED' ? 'bg-green-50 border-green-200 text-green-800' : ''}
+                ${q.status === 'REJECTED' ? 'bg-red-50 border-red-200 text-red-700' : ''}
+                ${q.status === 'PENDING' ? 'bg-yellow-50 border-yellow-200 text-yellow-800' : ''}
               `}>
-                Your quote: <strong>{myQuote.currency} {myQuote.amount.toFixed(2)}</strong> — {myQuote.status}
-                {myQuote.note && <span className="text-gray-600"> · {myQuote.note}</span>}
+                {q.status === 'REJECTED' ? 'Rejected quote' : 'Your quote'}: <strong>{q.currency} {q.amount.toFixed(2)}</strong> — {q.status}
+                {q.note && <span className="text-gray-600"> · {q.note}</span>}
               </div>
-            )}
+            ))}
 
             {/* Distributor: review quotes */}
             {isDistributor && task.quotes.length > 0 && (

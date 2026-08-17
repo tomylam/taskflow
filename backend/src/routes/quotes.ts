@@ -23,9 +23,13 @@ router.post('/', requireAuth, requireRole('PROVIDER'), async (req: AuthRequest, 
     return;
   }
 
-  // Check if this provider already quoted
+  // Check if this provider already quoted (excluding rejected ones)
   const existing = await prisma.quote.findFirst({
-    where: { taskId: body.taskId, providerId: req.user!.userId },
+    where: {
+      taskId: body.taskId,
+      providerId: req.user!.userId,
+      status: { not: 'REJECTED' },
+    },
   });
   if (existing) {
     res.status(409).json({ error: 'You have already quoted this task' });
