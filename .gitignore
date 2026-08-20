@@ -26,3 +26,11 @@ backend/prisma/dev.db
 # ── Private documents ─────────────────────────────────────────────────────────
 taskflow-deployment-credentials.html
 *deployment-credential*.html
+# ── Uploads (local file cache) ───────────────────────────────────────────────
+backend/uploads/
+
+# ── OS / editor (all dirs) ───────────────────────────────────────────────────
+**/.DS_Store
+
+# ── Bob AI assistant files (private) ─────────────────────────────────────────
+.bob/

@@ -12,8 +12,6 @@ services:
         sync: false
       - key: JWT_SECRET
         sync: false
-      - key: OPENROUTER_API_KEY
-        sync: false
       - key: STORJ_ENDPOINT
         sync: false
       - key: STORJ_ACCESS_KEY
